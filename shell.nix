@@ -1,6 +1,5 @@
 {
   pkgs ? import <nixpkgs> { },
-  cosmic-manager ? pkgs.callPackage ./cosmic-manager { },
   ...
 }:
 let
@@ -21,7 +20,6 @@ pkgs.mkShell {
     [
       cargo
       clippy
-      cosmic-manager
       deadnix
       nixfmt-rfc-style
       rustc

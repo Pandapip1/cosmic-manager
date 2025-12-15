@@ -50,8 +50,6 @@
           packages = {
             default = self'.packages.cosmic-manager;
 
-            cosmic-manager = pkgs.callPackage ./cosmic-manager { };
-
             home-manager-options = mkOptionsDoc {
               inherit version;
               moduleRoot = ./modules;

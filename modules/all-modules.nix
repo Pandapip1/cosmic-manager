@@ -11,13 +11,22 @@ in
 [
   ./appearance.nix
   ./compositor.nix
-  ./cosmic-manager.nix
   ./files.nix
   ./idle.nix
   ./panels.nix
   ./shortcuts.nix
   ./system-actions.nix
   ./wallpapers.nix
+  (lib.mkRemovedOptionModule [
+    "programs"
+    "cosmic-manager"
+    "enable"
+  ] "The cosmic-manager CLI is no longer available. Please remove this option.")
+  (lib.mkRemovedOptionModule [
+    "programs"
+    "cosmic-manager"
+    "package"
+  ] "The cosmic-manager CLI is no longer available. Please remove this option.")
 ]
 ++ foldlAttrs (
   prev: name: type:
