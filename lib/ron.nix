@@ -329,10 +329,12 @@ in
 
           float =
             let
+              roundToPrintedPrecision = float: fromJSON (toString float);
+
               trimFloatString =
                 float:
                 let
-                  string = floatToString float;
+                  string = floatToString (roundToPrintedPrecision float);
                 in
                 if hasInfix "." string then head (match "([0-9]+[.][0-9]*[1-9]|[0-9]+[.]0)0*" string) else string;
             in

@@ -97,6 +97,146 @@
                   Active window hint outline width for COSMIC compositor.
                 '';
 
+                alpha_map =
+                  let
+                    alphaMapSubmodule = lib.types.submodule {
+                      freeformType = with lib.types; attrsOf anything;
+                      options = {
+                        extremely_low = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.9;
+                          description = ''
+                            Container background alpha used for the extremely low frost strength.
+                          '';
+                        };
+
+                        extremely_low_2 = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.87692;
+                          description = ''
+                            Container background alpha used for the second extremely low frost strength.
+                          '';
+                        };
+
+                        very_low = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.85385;
+                          description = ''
+                            Container background alpha used for the very low frost strength.
+                          '';
+                        };
+
+                        very_low_2 = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.83076;
+                          description = ''
+                            Container background alpha used for the second very low frost strength.
+                          '';
+                        };
+
+                        low = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.80769;
+                          description = ''
+                            Container background alpha used for the low frost strength.
+                          '';
+                        };
+
+                        low_2 = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.78461;
+                          description = ''
+                            Container background alpha used for the second low frost strength.
+                          '';
+                        };
+
+                        medium = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.76154;
+                          description = ''
+                            Container background alpha used for the medium frost strength.
+                          '';
+                        };
+
+                        medium_2 = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.73846;
+                          description = ''
+                            Container background alpha used for the second medium frost strength.
+                          '';
+                        };
+
+                        high = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.71538;
+                          description = ''
+                            Container background alpha used for the high frost strength.
+                          '';
+                        };
+
+                        high_2 = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.69231;
+                          description = ''
+                            Container background alpha used for the second high frost strength.
+                          '';
+                        };
+
+                        very_high = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.66023;
+                          description = ''
+                            Container background alpha used for the very high frost strength.
+                          '';
+                        };
+
+                        very_high_2 = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.64615;
+                          description = ''
+                            Container background alpha used for the second very high frost strength.
+                          '';
+                        };
+
+                        extremely_high = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.62308;
+                          description = ''
+                            Container background alpha used for the extremely high frost strength.
+                          '';
+                        };
+
+                        extremely_high_2 = lib.mkOption {
+                          type = with lib.types; maybeRonRaw float;
+                          example = 0.6;
+                          description = ''
+                            Container background alpha used for the second extremely high frost strength.
+                          '';
+                        };
+                      };
+                    };
+                  in
+                  defaultNullOpts.mkNullable alphaMapSubmodule
+                    {
+                      extremely_low = 0.9;
+                      extremely_low_2 = 0.87692;
+                      very_low = 0.85385;
+                      very_low_2 = 0.83076;
+                      low = 0.80769;
+                      low_2 = 0.78461;
+                      medium = 0.76154;
+                      medium_2 = 0.73846;
+                      high = 0.71538;
+                      high_2 = 0.69231;
+                      very_high = 0.66023;
+                      very_high_2 = 0.64615;
+                      extremely_high = 0.62308;
+                      extremely_high_2 = 0.6;
+                    }
+                    ''
+                      Mapping of frost/blur strength to container background alpha for COSMIC compositor.
+                    '';
+
                 bg_color =
                   defaultNullOpts.mkNullable (lib.types.ronOptionalOf srgbaType)
                     {
@@ -295,6 +435,55 @@
                       Destructive color for the theme.
                     '';
 
+                frosted =
+                  defaultNullOpts.mkRonEnum
+                    [
+                      "ExtremelyLow"
+                      "ExtremelyLow2"
+                      "VeryLow"
+                      "VeryLow2"
+                      "Low"
+                      "Low2"
+                      "Medium"
+                      "Medium2"
+                      "High"
+                      "High2"
+                      "VeryHigh"
+                      "VeryHigh2"
+                      "ExtremelyHigh"
+                      "ExtremelyHigh2"
+                    ]
+                    "Medium"
+                    ''
+                      Strength of the blurred transparency (frost) effect for COSMIC compositor.
+
+                      NOTE: This has no effect unless at least one of `frosted_windows`,
+                      `frosted_system_interface`, `frosted_panel` or `frosted_applets` is enabled.
+                    '';
+
+                frosted_applets = defaultNullOpts.mkBool false ''
+                  Whether to enable the frosted glass effect on applet popups for COSMIC compositor.
+                '';
+
+                frosted_maximized_apps = defaultNullOpts.mkBool false ''
+                  Whether to keep the frosted glass effect on application windows when they are maximized
+                  for COSMIC compositor.
+                '';
+
+                frosted_panel = defaultNullOpts.mkBool false ''
+                  Whether to enable the frosted glass effect on the panel for COSMIC compositor.
+                '';
+
+                frosted_system_interface = defaultNullOpts.mkBool false ''
+                  Whether to enable the frosted glass effect on the system interface (e.g. launcher,
+                  app library) for COSMIC compositor.
+                '';
+
+                frosted_windows = defaultNullOpts.mkBool false ''
+                  Whether to enable the frosted glass effect on application windows for COSMIC
+                  compositor.
+                '';
+
                 gaps =
                   defaultNullOpts.mkRonTupleOf lib.types.ints.u32 2
                     {
@@ -307,12 +496,6 @@
                     ''
                       Window gaps size (outer and inner, respectively) for COSMIC compositor.
                     '';
-
-                is_frosted = defaultNullOpts.mkBool false ''
-                  Whether to enable blurred transparency for COSMIC compositor.
-
-                  NOTE: This option doesn't work for COSMIC yet.
-                '';
 
                 neutral_tint =
                   defaultNullOpts.mkNullable (lib.types.ronOptionalOf srgbType)
@@ -1373,7 +1556,6 @@
   config =
     let
       cfg = config.wayland.desktopManager.cosmic;
-      version = 1;
     in
     {
       home.activation.buildCosmicTheme =
@@ -1394,28 +1576,28 @@
         (lib.mkIf (cfg.appearance.theme.dark != null) {
           "com.system76.CosmicTheme.Dark.Builder" = {
             entries = cfg.appearance.theme.dark;
-            inherit version;
+            version = 2;
           };
         })
 
         (lib.mkIf (cfg.appearance.theme.light != null) {
           "com.system76.CosmicTheme.Light.Builder" = {
             entries = cfg.appearance.theme.light;
-            inherit version;
+            version = 2;
           };
         })
 
         (lib.mkIf (cfg.appearance.theme.mode != null) {
           "com.system76.CosmicTheme.Mode" = {
             entries.is_dark = cfg.appearance.theme.mode == "dark";
-            inherit version;
+            version = 1;
           };
         })
 
         (lib.mkIf (cfg.appearance.toolkit != null) {
           "com.system76.CosmicTk" = {
             entries = cfg.appearance.toolkit;
-            inherit version;
+            version = 1;
           };
         })
       ];
